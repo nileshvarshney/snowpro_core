@@ -1,0 +1,43 @@
+---Data Transformations 
+-- Merge first and last name
+SELECT CUSTOMER_ID, CONCAT(FIRST_NAME, ' ', LAST_NAME) AS FULL_NAME, EMAIL, PHONE, JOIN_DATE
+FROM CUSTOMER;
+
+--01b8f7fb-0004-5127-0003-4b63000106be
+
+-- Trim + sign from phone numbers
+SELECT CUSTOMER_ID, FIRST_NAME, LAST_NAME, EMAIL, LTRIM(PHONE, '+' ) AS CLEAN_PHONE, JOIN_DATE
+FROM CUSTOMER;
+
+--01b8f7fc-0004-4638-0003-4b630001360e
+
+-- Use of I/LIKE function
+SELECT CUSTOMER_ID, FIRST_NAME, LAST_NAME, EMAIL, PHONE, JOIN_DATE
+FROM CUSTOMER
+WHERE FIRST_NAME ILIKE '%JOHN%';
+
+--01b8f7fc-0004-4633-0003-4b63000126de
+
+
+-- Use of LEN() function
+SELECT CUSTOMER_ID, FIRST_NAME, LAST_NAME, EMAIL, PHONE, LEN(ADDRESS) AS ADDRESS_LENGTH, JOIN_DATE
+FROM CUSTOMER;
+
+--01b8f7fc-0004-463b-0003-4b630001563a
+
+-- Use of last_query_id
+SELECT CUSTOMER_ID FROM TABLE(RESULT_SCAN(last_query_id()));
+
+--01b8f7fd-0004-4638-0003-4b6300013616
+
+SELECT * FROM TABLE(RESULT_SCAN(last_query_id(1)));
+
+-- How last_query_id works
+
+SELECT LAST_QUERY_ID(2);
+
+--01b8f7ec-0004-5127-0003-4b630001067a
+
+
+
+-- Check more at https://docs.snowflake.com/en/user-guide/data-load-transform#supported-functions
